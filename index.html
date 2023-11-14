@@ -6,8 +6,9 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
 
-  <body>
+  <body id="body">
     <div class="container">
+      <div id="loaderID">Нужно подождать чуть чуть....</div>
       <ul id="ul" class="comments"></ul>
       <div id="form" class="add-form">
         <input
@@ -26,36 +27,84 @@
         <div class="add-form-row">
           <button id="button" class="add-form-button">Написать</button>
         </div>
-        <button id="deleteButton" class="add-form-button">
+        <!-- <button id="deleteButton" class="add-form-button">
           Удалить последний комментарий
-        </button>
+        </button> -->
       </div>
     </div>
   </body>
-
   <script>
     "use strict";
+
+    //Функция fetchAndRenderComments
+    const fetchAndRenderComments = () => {
+      return fetch(
+        "https://wedev-api.sky.pro/api/v1/yaroslav-olshanskiy/comments",
+        {
+          method: "GET",
+        }
+      )
+        .then((response) => {
+          return response.json();
+        })
+        .then((responseData) => {
+          const appComments = responseData.comments.map((comment) => {
+            const date = new Date(comment.date);
+            return {
+              name: comment.author.name,
+              date: date.toLocaleString(),
+              text: comment.text,
+              likes: comment.likes,
+              isLiked: false,
+            };
+          });
+          comments = appComments;
+          const loaderID = document.getElementById("loaderID");
+          loaderID.style.display = "none";
+          renderComments();
+        });
+    };
+    //Конец Функция fetchAndRenderComments
+
+    // Создание GET Запроса для ленты комментариев
+    // const fetchPromise = fetch(
+    //   "https://wedev-api.sky.pro/api/v1/yaroslav-olshanskiy/comments",
+    //   {
+    //     method: "GET",
+    //   }
+    // );
+
+    // fetchPromise.then((response) => {
+    //   const jsonPromise = response.json().then((responseData) => {
+    //     const appComments = responseData.comments.map((comment) => {
+    //       const date = new Date(comment.date);
+    //       const formattedDate = `${date.getDate()}.${
+    //         date.getMonth() + 1
+    //       }.${date.getFullYear()} ${date.getHours()}:${date
+    //         .getMinutes()
+    //         .toString()
+    //         .padStart(2, "0")}`;
+    //       return {
+    //         name: comment.author.name,
+    //         date: formattedDate,
+    //         text: comment.text,
+    //         likes: comment.likes,
+    //         isLiked: false,
+    //       };
+    //     });
+    //     comments = appComments;
+    //     renderComments();
+    //   });
+    // });
+    // Окончание GET Запроса для лены комментариев
+
     // Код писать здесь
     // console.log("It works!");
     // Это кнопка НАПИСАТЬ
+
     const ulElements = document.getElementById("ul");
     let name;
-    const comments = [
-      {
-        name: "Глеб Фокин",
-        date: "12.02.22 12:18",
-        text: "Это будет первый комментарий на этой странице",
-        likes: "3",
-        isLike: false,
-      },
-      {
-        name: "Варвара Н.",
-        date: "13.02.22 19:22",
-        text: "Мне нравится как оформлена эта страница! ❤",
-        likes: "75",
-        isLike: false,
-      },
-    ];
+    let comments = [];
     // -active-like"
     const renderComments = () => {
       const commentsHTML = comments
@@ -121,6 +170,7 @@
         comment.isLike = true;
       }
     };
+    fetchAndRenderComments();
     renderComments();
 
     // renderComments();
@@ -128,6 +178,7 @@
     //Логика, которая отрабатывает после того, когда нажимается кнопки!
     const input = document.getElementById("nameInput");
     const button = document.getElementById("button");
+    const textArea = document.getElementById("commintInput");
     function addComment() {
       const textArea = document.getElementById("commintInput");
       const ul = document.getElementById("ul");
@@ -169,13 +220,13 @@
       let formattedDate =
         day + "." + month + "." + year + " " + hours + ":" + minutes;
 
-      comments.push({
-        name: input.value.replaceAll("<", "&lt;").replaceAll(">", "&gt;"),
-        date: formattedDate,
-        text: textArea.value.replaceAll("<", "&lt;").replaceAll(">", "&gt;"),
-        likes: "0",
-        isLike: false,
-      });
+      // comments.push({
+      //   name: input.value.replaceAll("<", "&lt;").replaceAll(">", "&gt;"),
+      //   date: formattedDate,
+      //   text: textArea.value.replaceAll("<", "&lt;").replaceAll(">", "&gt;"),
+      //   likes: "0",
+      //   isLike: false,
+      // });
       input.value = "";
       textArea.value = "";
 
@@ -195,21 +246,161 @@
 
     // Кнопка (Написать по клику)
     button.addEventListener("click", function () {
-      addComment();
+      // addComment();
       // setupLikeButton();
       // addButtonLike();
-      renderComments();
+      const addEventClick = () => {
+        if (input.value === "" && textArea.value === "") {
+          button.style.backgroundColor = "grey";
+          input.style.backgroundColor = "#FFB6C1";
+          textArea.style.backgroundColor = "#FFB6C1";
+          return;
+        } else if (input.value === "") {
+          input.style.backgroundColor = "#FFB6C1";
+          return;
+        } else if (textArea.value === "") {
+          textArea.style.backgroundColor = "#FFB6C1";
+          return;
+        }
+        button.disabled = true;
+        button.textContent = "Элемент добавляется.....";
+        fetch("https://wedev-api.sky.pro/api/v1/yaroslav-olshanskiy/comments", {
+          method: "POST",
+          body: JSON.stringify({
+            name: input.value.replaceAll("<", "&lt;").replaceAll(">", "&gt;"),
+            date: addComment.formattedDate,
+            text: textArea.value
+              .replaceAll("<", "&lt;")
+              .replaceAll(">", "&gt;"),
+            likes: "0",
+            isLike: false,
+            forceError: true,
+          }),
+        })
+          .then((response) => {
+            if (response.status <= 201) {
+              return response.json();
+            } else if (response.status === 400) {
+              throw new Error(
+                "Имя и комментарий должны быть не короче 3 символов"
+              );
+            } else if (response.status === 500) {
+              throw new Error("Сервер сломался, попробуй позже");
+            }
+          })
+          .then(() => {
+            button.disabled = true;
+            button.textContent = "Загружаю список…";
+          })
+          .then(() => {
+            return fetchAndRenderComments();
+          })
+          .then((data) => {
+            button.disabled = false;
+            button.textContent = "Добавить";
+            input.style.backgroundColor = "";
+            textArea.style.backgroundColor = "";
+            input.value = "";
+            textArea.value = "";
+          })
+          .catch((error) => {
+            // console.log(error.message);
+            button.disabled = false;
+            button.textContent = "Добавить";
+            input.style.backgroundColor = "#FFB6C1";
+            textArea.style.backgroundColor = "#FFB6C1";
+            if (
+              error.message ===
+              "Имя и комментарий должны быть не короче 3 символов"
+            ) {
+              alert("Имя и комментарий должны быть не короче 3 символов");
+            }
+
+            if (error.message === "Сервер сломался, попробуй позже") {
+              alert("Сервер сломался, попробуй позже");
+            }
+            if (error.message === "Сервер сломался, попробуй позже") {
+              alert("Сервер сломался, попробуй позже");
+            }
+            if ((error.message = "Failed to fetch")) {
+              alert("Кажется, у вас сломался интернет, попробуйте позже");
+            }
+          });
+        renderComments();
+      };
+      addEventClick();
     });
 
-    // Это кнопка будет Удалить
-    const delCom = document.getElementById("deleteButton");
-    function deleteCommit() {
-      const ul = document.getElementById("ul");
-      let latComm = ul.getElementsByTagName("li").length - 1;
-      ul.getElementsByTagName("li")[latComm].remove();
-    }
-    delCom.addEventListener("click", function () {
-      deleteCommit();
-    });
+    // // Это кнопка будет Удалить
+    // const delCom = document.getElementById("deleteButton");
+    // function deleteCommit() {
+    //   const ul = document.getElementById("ul");
+    //   let latComm = ul.getElementsByTagName("li").length - 1;
+    //   ul.getElementsByTagName("li")[latComm].remove();
+    // }
+    // delCom.addEventListener("click", function () {
+    //   deleteCommit();
+    // });
   </script>
 </html>
+
+<!-- button.addEventListener("click", function () {
+      // addComment();
+      // setupLikeButton();
+      // addButtonLike();
+
+      if (input.value === "" && textArea.value === "") {
+        return;
+      }
+      button.disabled = true;
+      button.textContent = "Элемент добавляется.....";
+      fetch("https://wedev-api.sky.pro/api/v1/yaroslav-olshanskiy/comments", {
+        method: "POST",
+        body: JSON.stringify({
+          name: input.value.replaceAll("<", "&lt;").replaceAll(">", "&gt;"),
+          date: addComment.formattedDate,
+          text: textArea.value.replaceAll("<", "&lt;").replaceAll(">", "&gt;"),
+          likes: "0",
+          isLike: false,
+        }),
+      }).then((response) => {
+        response.json().then((responseData) => {
+          //123
+          const fetchPromise = fetch(
+            "https://wedev-api.sky.pro/api/v1/yaroslav-olshanskiy/comments",
+            {
+              method: "GET",
+            }
+          );
+
+          fetchPromise.then((response) => {
+            const jsonPromise = response.json().then((responseData) => {
+              const appComments = responseData.comments.map((comment) => {
+                return {
+                  name: comment.author.name,
+                  date: new Date()
+                    .toLocaleString("ru-RU", {
+                      year: "2-digit",
+                      month: "2-digit",
+                      day: "2-digit",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                      hour12: false,
+                    })
+                    .replace(",", ""),
+                  text: comment.text,
+                  likes: comment.likes,
+                  isLiked: false,
+                };
+              });
+              comments = appComments;
+              renderComments();
+            });
+          });
+          //123
+        });
+      });
+      renderComments();
+      input.value = "";
+      textArea.value = "";
+    }); -->
