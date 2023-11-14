@@ -17,7 +17,7 @@ const fetchAndRenderComments = () => {
     comments = appComments;
     const loaderID = document.getElementById("loaderID");
     loaderID.style.display = "none";
-    renderComments({ comments, likeComment, butCom });
+    renderComments({ comments });
   });
 };
 //Конец Функция fetchAndRenderComments
@@ -27,14 +27,14 @@ let comments = [];
 // -active-like"
 
 //Функция для комменатрия
-const butCom = (index) => {
+export const butCom = (index) => {
   let commentInput = document.getElementById("commintInput");
   const comment = comments[index];
   commentInput.value = `${comment.text},${comment.name}`;
 };
 
 //DoneThis
-const likeComment = (index) => {
+export const likeComment = (index) => {
   const comment = comments[index];
   if (comment.isLike) {
     comment.likes--;
@@ -45,7 +45,7 @@ const likeComment = (index) => {
   }
 };
 fetchAndRenderComments();
-renderComments({ comments, likeComment, butCom });
+renderComments({ comments });
 
 // renderComments();
 
@@ -163,7 +163,7 @@ button.addEventListener("click", function () {
           alert("Кажется, у вас сломался интернет, попробуйте позже");
         }
       });
-    renderComments({ comments, likeComment, butCom });
+    renderComments({ comments });
   };
   addEventClick();
 });

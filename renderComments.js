@@ -1,5 +1,6 @@
+import { commentEnt, likeEnt } from "./likesAndComments.js";
 const ulElements = document.getElementById("ul");
-export const renderComments = ({ comments, likeComment, butCom }) => {
+export const renderComments = ({ comments }) => {
   const commentsHTML = comments
     .map((comment, index) => {
       return `<li class="comment" id ="comment" data-index="${index} ">
@@ -25,24 +26,24 @@ export const renderComments = ({ comments, likeComment, butCom }) => {
     .join("");
   ulElements.innerHTML = commentsHTML;
   //Кнопка лайка
-  const likeButtons = document.querySelectorAll(".like-button");
-  likeButtons.forEach((likeButton, index) => {
-    likeButton.addEventListener("click", (event) => {
-      event.stopPropagation();
-      likeComment(index);
-      renderComments();
-    });
-  });
+  likeEnt();
+  //   const likeButtons = document.querySelectorAll(".like-button");
+  //   likeButtons.forEach((likeButton, index) => {
+  //     likeButton.addEventListener("click", (event) => {
+  //       event.stopPropagation();
+  //       likeComment(index);
+  //       renderComments();
+  //     });
+  //   });
 
-    //Sdasdsa
   //Кнопка комментария
-  //Дальне не понимаю что нужно сделать
-  const commentButton = document.querySelectorAll(".comment-text");
-  commentButton.forEach((comBut, index) => {
-    comBut.addEventListener("click", (event) => {
-      event.stopPropagation();
-      butCom(index);
-      renderComments();
-    });
-  });
+  commentEnt();
+  //   const commentButton = document.querySelectorAll(".comment-text");
+  //   commentButton.forEach((comBut, index) => {
+  //     comBut.addEventListener("click", (event) => {
+  //       event.stopPropagation();
+  //       butCom(index);
+  //       renderComments();
+  //     });
+  //   });
 };
