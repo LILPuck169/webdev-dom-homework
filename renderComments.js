@@ -34,6 +34,7 @@ export const renderComments = ({ comments, likeComment, butCom }) => {
     });
   });
 
+    //Sdasdsa
   //Кнопка комментария
   //Дальне не понимаю что нужно сделать
   const commentButton = document.querySelectorAll(".comment-text");
