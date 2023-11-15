@@ -44,6 +44,7 @@ export const likeComment = (index) => {
     comment.isLike = true;
   }
 };
+
 fetchAndRenderComments();
 renderComments({ comments });
 

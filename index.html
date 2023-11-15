@@ -20,7 +20,7 @@
         <textarea
           id="commintInput"
           type="textarea"
-          class="add-form-text"
+          class="add-form-text" 
           placeholder="Введите ваш коментарий"
           rows="4"
         ></textarea>
@@ -35,64 +35,3 @@
   </body>
   <script type="module" src="main.js"></script>
 </html>
-
-<!-- button.addEventListener("click", function () {
-      // addComment();
-      // setupLikeButton();
-      // addButtonLike();
-
-      if (input.value === "" && textArea.value === "") {
-        return;
-      }
-      button.disabled = true;
-      button.textContent = "Элемент добавляется.....";
-      fetch("https://wedev-api.sky.pro/api/v1/yaroslav-olshanskiy/comments", {
-        method: "POST",
-        body: JSON.stringify({
-          name: input.value.replaceAll("<", "&lt;").replaceAll(">", "&gt;"),
-          date: addComment.formattedDate,
-          text: textArea.value.replaceAll("<", "&lt;").replaceAll(">", "&gt;"),
-          likes: "0",
-          isLike: false,
-        }),
-      }).then((response) => {
-        response.json().then((responseData) => {
-          //123
-          const fetchPromise = fetch(
-            "https://wedev-api.sky.pro/api/v1/yaroslav-olshanskiy/comments",
-            {
-              method: "GET",
-            }
-          );
-
-          fetchPromise.then((response) => {
-            const jsonPromise = response.json().then((responseData) => {
-              const appComments = responseData.comments.map((comment) => {
-                return {
-                  name: comment.author.name,
-                  date: new Date()
-                    .toLocaleString("ru-RU", {
-                      year: "2-digit",
-                      month: "2-digit",
-                      day: "2-digit",
-                      hour: "2-digit",
-                      minute: "2-digit",
-                      hour12: false,
-                    })
-                    .replace(",", ""),
-                  text: comment.text,
-                  likes: comment.likes,
-                  isLiked: false,
-                };
-              });
-              comments = appComments;
-              renderComments();
-            });
-          });
-          //123
-        });
-      });
-      renderComments();
-      input.value = "";
-      textArea.value = "";
-    }); -->

@@ -1,4 +1,6 @@
-// import { butCom, likeComment } from "./main.js";
+import { butCom, likeComment } from "./main.js";
+import { renderComments } from "./renderComments.js";
+
 export function likeEnt() {
   const likeButtons = document.querySelectorAll(".like-button");
   likeButtons.forEach((likeButton, index) => {
