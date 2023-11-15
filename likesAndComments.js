@@ -7,7 +7,7 @@ export function likeEnt() {
     likeButton.addEventListener("click", (event) => {
       event.stopPropagation();
       likeComment(index);
-      renderComments();
+      renderComments({ comments });
     });
   });
 }
@@ -18,7 +18,7 @@ export function commentEnt() {
     comBut.addEventListener("click", (event) => {
       event.stopPropagation();
       butCom(index);
-      renderComments();
+      renderComments({ comments });
     });
   });
 }
