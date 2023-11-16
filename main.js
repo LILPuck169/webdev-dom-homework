@@ -23,7 +23,7 @@ const fetchAndRenderComments = () => {
 //Конец Функция fetchAndRenderComments
 
 let name;
-let comments = [];
+export let comments = [];
 // -active-like"
 
 //Функция для комменатрия

@@ -1,4 +1,4 @@
-import { butCom, likeComment } from "./main.js";
+import { butCom, likeComment, comments } from "./main.js";
 import { renderComments } from "./renderComments.js";
 
 export function likeEnt() {

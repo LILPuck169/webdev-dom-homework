@@ -26,7 +26,7 @@ export const renderComments = ({ comments }) => {
     .join("");
   ulElements.innerHTML = commentsHTML;
   //Кнопка лайка
-  likeEnt();
+  likeEnt({});
   //   const likeButtons = document.querySelectorAll(".like-button");
   //   likeButtons.forEach((likeButton, index) => {
   //     likeButton.addEventListener("click", (event) => {
@@ -37,7 +37,7 @@ export const renderComments = ({ comments }) => {
   //   });
 
   //Кнопка комментария
-  commentEnt();
+  commentEnt({});
   //   const commentButton = document.querySelectorAll(".comment-text");
   //   commentButton.forEach((comBut, index) => {
   //     comBut.addEventListener("click", (event) => {
