@@ -1,4 +1,5 @@
 import { getDate, sendDate } from "./api.js";
+import { renderLogin } from "./loginPage.js";
 import { renderComments } from "./renderComments.js";
 
 //Функция fetchAndRenderComments
@@ -45,15 +46,16 @@ export const likeComment = (index) => {
   }
 };
 
-fetchAndRenderComments();
+// fetchAndRenderComments();
+renderLogin({ fetchAndRenderComments });
 renderComments({ comments });
 
 // renderComments();
 
 //Логика, которая отрабатывает после того, когда нажимается кнопки!
-const input = document.getElementById("nameInput");
-const button = document.getElementById("button");
-const textArea = document.getElementById("commintInput");
+// const input = document.getElementById("nameInput");
+// const button = document.getElementById("button");
+// const textArea = document.getElementById("commintInput");
 function addComment() {
   const textArea = document.getElementById("commintInput");
   const ul = document.getElementById("ul");
@@ -101,70 +103,70 @@ function addComment() {
   //Нужно писать тут!
 }
 
-// Кнопка (Написать по клику)
-button.addEventListener("click", function () {
-  // addComment();
-  // setupLikeButton();
-  // addButtonLike();
-  const addEventClick = () => {
-    if (input.value === "" && textArea.value === "") {
-      button.style.backgroundColor = "grey";
-      input.style.backgroundColor = "#FFB6C1";
-      textArea.style.backgroundColor = "#FFB6C1";
-      return;
-    } else if (input.value === "") {
-      input.style.backgroundColor = "#FFB6C1";
-      return;
-    } else if (textArea.value === "") {
-      textArea.style.backgroundColor = "#FFB6C1";
-      return;
-    }
-    button.disabled = true;
-    button.textContent = "Элемент добавляется.....";
+// // Кнопка (Написать по клику)
+// button.addEventListener("click", function () {
+//   // addComment();
+//   // setupLikeButton();
+//   // addButtonLike();
+//   const addEventClick = () => {
+//     if (input.value === "" && textArea.value === "") {
+//       button.style.backgroundColor = "grey";
+//       input.style.backgroundColor = "#FFB6C1";
+//       textArea.style.backgroundColor = "#FFB6C1";
+//       return;
+//     } else if (input.value === "") {
+//       input.style.backgroundColor = "#FFB6C1";
+//       return;
+//     } else if (textArea.value === "") {
+//       textArea.style.backgroundColor = "#FFB6C1";
+//       return;
+//     }
+//     button.disabled = true;
+//     button.textContent = "Элемент добавляется.....";
 
-    sendDate({
-      name: input.value.replaceAll("<", "&lt;").replaceAll(">", "&gt;"),
-      date: addComment.formattedDate,
-      text: textArea.value.replaceAll("<", "&lt;").replaceAll(">", "&gt;"),
-      likes: "0",
-      isLike: false,
-      forceError: true,
-    })
-      .then(() => {
-        button.disabled = true;
-        button.textContent = "Загружаю список…";
-      })
-      .then(() => {
-        return fetchAndRenderComments();
-      })
-      .then((data) => {
-        button.disabled = false;
-        button.textContent = "Добавить";
-        input.style.backgroundColor = "";
-        textArea.style.backgroundColor = "";
-        input.value = "";
-        textArea.value = "";
-      })
-      .catch((error) => {
-        // console.log(error.message);
-        button.disabled = false;
-        button.textContent = "Добавить";
-        input.style.backgroundColor = "#FFB6C1";
-        textArea.style.backgroundColor = "#FFB6C1";
-        if (
-          error.message === "Имя и комментарий должны быть не короче 3 символов"
-        ) {
-          alert("Имя и комментарий должны быть не короче 3 символов");
-        }
+//     sendDate({
+//       name: input.value.replaceAll("<", "&lt;").replaceAll(">", "&gt;"),
+//       date: addComment.formattedDate,
+//       text: textArea.value.replaceAll("<", "&lt;").replaceAll(">", "&gt;"),
+//       likes: "0",
+//       isLike: false,
+//       forceError: true,
+//     })
+//       .then(() => {
+//         button.disabled = true;
+//         button.textContent = "Загружаю список…";
+//       })
+//       .then(() => {
+//         return fetchAndRenderComments();
+//       })
+//       .then((data) => {
+//         button.disabled = false;
+//         button.textContent = "Добавить";
+//         input.style.backgroundColor = "";
+//         textArea.style.backgroundColor = "";
+//         input.value = "";
+//         textArea.value = "";
+//       })
+//       .catch((error) => {
+//         // console.log(error.message);
+//         button.disabled = false;
+//         button.textContent = "Добавить";
+//         input.style.backgroundColor = "#FFB6C1";
+//         textArea.style.backgroundColor = "#FFB6C1";
+//         if (
+//           error.message === "Имя и комментарий должны быть не короче 3 символов"
+//         ) {
+//           alert("Имя и комментарий должны быть не короче 3 символов");
+//         }
 
-        if (error.message === "Сервер сломался, попробуй позже") {
-          alert("Сервер сломался, попробуй позже");
-        }
-        if ((error.message = "Failed to fetch")) {
-          alert("Кажется, у вас сломался интернет, попробуйте позже");
-        }
-      });
-    renderComments({ comments });
-  };
-  addEventClick();
-});
+//         if (error.message === "Сервер сломался, попробуй позже") {
+//           alert("Сервер сломался, попробуй позже");
+//         }
+//         if ((error.message = "Failed to fetch")) {
+//           alert("Кажется, у вас сломался интернет, попробуйте позже");
+//         }
+//       });
+//     renderComments({ comments });
+//   };
+//   addEventClick();
+// });
