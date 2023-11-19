@@ -1,7 +1,8 @@
 import { login, setToken, token } from "./api.js";
 
 export const renderLogin = ({ fetchAndRenderComments }) => {
-  const appElement = document.getElementById("app");
+  // const appElement = document.getElementById("app");
+  const appElement = document.querySelector(".container");
   const loginHtml = ` <div class="form">
       <h3 class="form-title">Форма входа</h3>
       <div class="form-row">
@@ -15,7 +16,7 @@ export const renderLogin = ({ fetchAndRenderComments }) => {
       </div>
       <br />
       <button class="button" id="login-button">Войти</button>
-      <a href="index.html" id="link-to-tasks">Зарегистрироваться</a>
+      // <a href="index.html" id="link-to-tasks">Зарегистрироваться</a>
     </div>`;
 
   appElement.innerHTML = loginHtml;

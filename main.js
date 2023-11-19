@@ -5,27 +5,26 @@ import { renderComments } from "./renderComments.js";
 //Функция fetchAndRenderComments
 const fetchAndRenderComments = () => {
   console.log("123");
-  getDate()
-    .then((responseData) => {
-      const appComments = responseData.comments.map((comment) => {
-        const date = new Date(comment.date);
-        return {
-          name: comment.author.name,
-          date: date.toLocaleString(),
-          text: comment.text,
-          likes: comment.likes,
-          isLiked: false,
-        };
-      });
-      comments = appComments;
-      const loaderID = document.getElementById("loaderID");
-      loaderID.style.display = "none";
-      renderComments({ comments });
-      console.log("123");
-    })
-    .then(() => {
-      renderComments();
+  getDate().then((responseData) => {
+    const appComments = responseData.comments.map((comment) => {
+      const date = new Date(comment.date);
+      return {
+        name: comment.author.name,
+        date: date.toLocaleString(),
+        text: comment.text,
+        likes: comment.likes,
+        isLiked: false,
+      };
     });
+    comments = appComments;
+    const loaderID = document.getElementById("loaderID");
+    // loaderID.style.display = "none";
+    renderComments({ comments });
+    renderLogin({ fetchAndRenderComments });
+  });
+  //     .then(() => {
+  //       renderComments();
+  //     });
 };
 //Конец Функция fetchAndRenderComments
 
@@ -53,8 +52,8 @@ export const likeComment = (index) => {
 };
 
 fetchAndRenderComments();
-renderLogin({ fetchAndRenderComments });
-renderComments({ comments });
+// renderLogin({ fetchAndRenderComments });
+// renderComments({ comments });
 
 // renderComments();
 
@@ -108,71 +107,3 @@ function addComment() {
 
   //Нужно писать тут!
 }
-
-// // Кнопка (Написать по клику)
-// button.addEventListener("click", function () {
-//   // addComment();
-//   // setupLikeButton();
-//   // addButtonLike();
-//   const addEventClick = () => {
-//     if (input.value === "" && textArea.value === "") {
-//       button.style.backgroundColor = "grey";
-//       input.style.backgroundColor = "#FFB6C1";
-//       textArea.style.backgroundColor = "#FFB6C1";
-//       return;
-//     } else if (input.value === "") {
-//       input.style.backgroundColor = "#FFB6C1";
-//       return;
-//     } else if (textArea.value === "") {
-//       textArea.style.backgroundColor = "#FFB6C1";
-//       return;
-//     }
-//     button.disabled = true;
-//     button.textContent = "Элемент добавляется.....";
-
-//     sendDate({
-//       name: input.value.replaceAll("<", "&lt;").replaceAll(">", "&gt;"),
-//       date: addComment.formattedDate,
-//       text: textArea.value.replaceAll("<", "&lt;").replaceAll(">", "&gt;"),
-//       likes: "0",
-//       isLike: false,
-//       forceError: true,
-//     })
-//       .then(() => {
-//         button.disabled = true;
-//         button.textContent = "Загружаю список…";
-//       })
-//       .then(() => {
-//         return fetchAndRenderComments();
-//       })
-//       .then((data) => {
-//         button.disabled = false;
-//         button.textContent = "Добавить";
-//         input.style.backgroundColor = "";
-//         textArea.style.backgroundColor = "";
-//         input.value = "";
-//         textArea.value = "";
-//       })
-//       .catch((error) => {
-//         // console.log(error.message);
-//         button.disabled = false;
-//         button.textContent = "Добавить";
-//         input.style.backgroundColor = "#FFB6C1";
-//         textArea.style.backgroundColor = "#FFB6C1";
-//         if (
-//           error.message === "Имя и комментарий должны быть не короче 3 символов"
-//         ) {
-//           alert("Имя и комментарий должны быть не короче 3 символов");
-//         }
-
-//         if (error.message === "Сервер сломался, попробуй позже") {
-//           alert("Сервер сломался, попробуй позже");
-//         }
-//         if ((error.message = "Failed to fetch")) {
-//           alert("Кажется, у вас сломался интернет, попробуйте позже");
-//         }
-//       });
-//     renderComments({ comments });
-//   };
-//   addEventClick();
-// });
