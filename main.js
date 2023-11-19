@@ -4,22 +4,28 @@ import { renderComments } from "./renderComments.js";
 
 //Функция fetchAndRenderComments
 const fetchAndRenderComments = () => {
-  getDate().then((responseData) => {
-    const appComments = responseData.comments.map((comment) => {
-      const date = new Date(comment.date);
-      return {
-        name: comment.author.name,
-        date: date.toLocaleString(),
-        text: comment.text,
-        likes: comment.likes,
-        isLiked: false,
-      };
+  console.log("123");
+  getDate()
+    .then((responseData) => {
+      const appComments = responseData.comments.map((comment) => {
+        const date = new Date(comment.date);
+        return {
+          name: comment.author.name,
+          date: date.toLocaleString(),
+          text: comment.text,
+          likes: comment.likes,
+          isLiked: false,
+        };
+      });
+      comments = appComments;
+      const loaderID = document.getElementById("loaderID");
+      loaderID.style.display = "none";
+      renderComments({ comments });
+      console.log("123");
+    })
+    .then(() => {
+      renderComments();
     });
-    comments = appComments;
-    const loaderID = document.getElementById("loaderID");
-    loaderID.style.display = "none";
-    renderComments({ comments });
-  });
 };
 //Конец Функция fetchAndRenderComments
 
@@ -46,7 +52,7 @@ export const likeComment = (index) => {
   }
 };
 
-// fetchAndRenderComments();
+fetchAndRenderComments();
 renderLogin({ fetchAndRenderComments });
 renderComments({ comments });
 

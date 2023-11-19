@@ -2,6 +2,7 @@ import { sendDate } from "./api.js";
 import { commentEnt, likeEnt } from "./likesAndComments.js";
 const ulElements = document.getElementById("ul");
 export const renderComments = ({ comments, fetchAndRenderComments }) => {
+  console.log("3");
   const appElement = document.getElementById("app");
   const commentsHTML = comments
     .map((comment, index) => {
