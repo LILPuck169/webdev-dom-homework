@@ -1,10 +1,13 @@
 const host = "https://wedev-api.sky.pro/api/v2/yaroslav-olshanskiy/comments";
 const userUrl = "https://wedev-api.sky.pro/api/user/login";
 
-export let token;
-
+let token;
 export const setToken = (newToken) => {
   token = newToken;
+};
+
+export const getToken = () => {
+  return token;
 };
 
 export function getDate() {

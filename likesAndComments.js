@@ -1,4 +1,9 @@
-import { butCom, likeComment, comments } from "./main.js";
+import {
+  butCom,
+  likeComment,
+  comments,
+  fetchAndRenderComments,
+} from "./main.js";
 import { renderComments } from "./renderComments.js";
 
 export function likeEnt() {
@@ -7,7 +12,7 @@ export function likeEnt() {
     likeButton.addEventListener("click", (event) => {
       event.stopPropagation();
       likeComment(index);
-      renderComments({ comments });
+      renderComments({ comments, fetchAndRenderComments });
     });
   });
 }
@@ -18,7 +23,7 @@ export function commentEnt() {
     comBut.addEventListener("click", (event) => {
       event.stopPropagation();
       butCom(index);
-      renderComments({ comments });
+      renderComments({ comments, fetchAndRenderComments });
     });
   });
 }

@@ -3,8 +3,7 @@ import { renderLogin } from "./loginPage.js";
 import { renderComments } from "./renderComments.js";
 
 //Функция fetchAndRenderComments
-const fetchAndRenderComments = () => {
-  console.log("123");
+export const fetchAndRenderComments = () => {
   getDate().then((responseData) => {
     const appComments = responseData.comments.map((comment) => {
       const date = new Date(comment.date);
@@ -19,8 +18,8 @@ const fetchAndRenderComments = () => {
     comments = appComments;
     const loaderID = document.getElementById("loaderID");
     // loaderID.style.display = "none";
-    renderComments({ comments });
-    renderLogin({ fetchAndRenderComments });
+    renderComments({ comments, fetchAndRenderComments });
+    // renderLogin({ fetchAndRenderComments });
   });
   //     .then(() => {
   //       renderComments();

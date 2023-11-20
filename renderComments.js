@@ -1,5 +1,6 @@
-import { sendDate } from "./api.js";
+import { getToken, sendDate } from "./api.js";
 import { commentEnt, likeEnt } from "./likesAndComments.js";
+import { renderLogin } from "./loginPage.js";
 const ulElements = document.getElementById("ul");
 export const renderComments = ({ comments, fetchAndRenderComments }) => {
   const appElement = document.getElementById("app");
@@ -29,9 +30,11 @@ export const renderComments = ({ comments, fetchAndRenderComments }) => {
 
   const appHtml = ` 
     <div class="container">
-      <div id="loaderID">Нужно подождать чуть чуть....</div>
+     
       <ul id="ul" class="comments">${commentsHTML}</ul>
-      <div id="form" class="add-form">
+      ${
+        getToken() &&
+        `   <div id="form" class="add-form">
         <input
           id="nameInput"
           type="text"
@@ -48,16 +51,24 @@ export const renderComments = ({ comments, fetchAndRenderComments }) => {
         <div class="add-form-row">
           <button id="button" class="add-form-button">Написать</button>
         </div>
-      </div>
+      </div>`
+      }
+      ${!getToken() && `<span class="auth-button">Авторизуйтесь!</span>`}
     </div>`;
 
   appElement.innerHTML = appHtml;
-
+  const butAuth = document.querySelector(".auth-button");
   const input = document.getElementById("nameInput");
   const button = document.getElementById("button");
   const textArea = document.getElementById("commintInput");
+
+  butAuth &&
+    butAuth.addEventListener("click", () => {
+      renderLogin({ fetchAndRenderComments });
+    });
+
   // Кнопка (Написать по клику)
-  button.addEventListener("click", function () {
+  button?.addEventListener("click", function () {
     // addComment();
     // setupLikeButton();
     // addButtonLike();
@@ -79,10 +90,7 @@ export const renderComments = ({ comments, fetchAndRenderComments }) => {
 
       sendDate({
         name: input.value.replaceAll("<", "&lt;").replaceAll(">", "&gt;"),
-        date: addComment.formattedDate,
         text: textArea.value.replaceAll("<", "&lt;").replaceAll(">", "&gt;"),
-        likes: "0",
-        isLike: false,
         forceError: true,
       })
         .then(() => {
@@ -120,7 +128,7 @@ export const renderComments = ({ comments, fetchAndRenderComments }) => {
             alert("Кажется, у вас сломался интернет, попробуйте позже");
           }
         });
-      renderComments({ comments });
+      renderComments({ comments, fetchAndRenderComments });
     };
     addEventClick();
   });

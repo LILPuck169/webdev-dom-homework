@@ -1,4 +1,4 @@
-import { login, setToken, token } from "./api.js";
+import { login, setToken, getToken } from "./api.js";
 
 export const renderLogin = ({ fetchAndRenderComments }) => {
   // const appElement = document.getElementById("app");
@@ -31,9 +31,9 @@ export const renderLogin = ({ fetchAndRenderComments }) => {
       password: passwordInputElement.value,
     })
       .then((responseData) => {
-        console.log(token);
+        console.log(getToken());
         setToken(responseData.user.token);
-        console.log(token);
+        console.log(getToken());
       })
       .then(() => {
         fetchAndRenderComments();
