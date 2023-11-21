@@ -16,7 +16,7 @@ export const fetchAndRenderComments = () => {
       };
     });
     comments = appComments;
-    const loaderID = document.getElementById("loaderID");
+    // const loaderID = document.getElementById("loaderID");
     // loaderID.style.display = "none";
     renderComments({ comments, fetchAndRenderComments });
     // renderLogin({ fetchAndRenderComments });

@@ -24,17 +24,17 @@ export const renderComments = ({ comments, fetchAndRenderComments }) => {
               }" ></button>
             </div>
           </div>
+        
         </li>`;
     })
     .join("");
 
   const appHtml = ` 
     <div class="container">
-     
       <ul id="ul" class="comments">${commentsHTML}</ul>
       ${
-        getToken() &&
-        `   <div id="form" class="add-form">
+        getToken()
+          ? `<div id="form" class="add-form">
         <input
           id="nameInput"
           type="text"
@@ -52,10 +52,10 @@ export const renderComments = ({ comments, fetchAndRenderComments }) => {
           <button id="button" class="add-form-button">Написать</button>
         </div>
       </div>`
+          : `<span class="auth-button">Авторизуйтесь!</span>`
       }
-      ${!getToken() && `<span class="auth-button">Авторизуйтесь!</span>`}
-    </div>`;
-
+         </div>`;
+  // ${!getToken() && `<span class="auth-button">Авторизуйтесь!</span>`}
   appElement.innerHTML = appHtml;
   const butAuth = document.querySelector(".auth-button");
   const input = document.getElementById("nameInput");
@@ -134,7 +134,7 @@ export const renderComments = ({ comments, fetchAndRenderComments }) => {
   });
 
   //Кнопка лайка
-  likeEnt({});
+  likeEnt();
   //   const likeButtons = document.querySelectorAll(".like-button");
   //   likeButtons.forEach((likeButton, index) => {
   //     likeButton.addEventListener("click", (event) => {
@@ -145,7 +145,7 @@ export const renderComments = ({ comments, fetchAndRenderComments }) => {
   //   });
 
   //Кнопка комментария
-  commentEnt({});
+  commentEnt();
   //   const commentButton = document.querySelectorAll(".comment-text");
   //   commentButton.forEach((comBut, index) => {
   //     comBut.addEventListener("click", (event) => {

@@ -16,7 +16,7 @@ export const renderLogin = ({ fetchAndRenderComments }) => {
       </div>
       <br />
       <button class="button" id="login-button">Войти</button>
-      // <a href="index.html" id="link-to-tasks">Зарегистрироваться</a>
+       <a href="index.html" id="link-to-tasks">Зарегистрироваться</a>
     </div>`;
 
   appElement.innerHTML = loginHtml;
@@ -31,9 +31,9 @@ export const renderLogin = ({ fetchAndRenderComments }) => {
       password: passwordInputElement.value,
     })
       .then((responseData) => {
-        console.log(getToken());
+        // console.log(getToken());
         setToken(responseData.user.token);
-        console.log(getToken());
+        // console.log(getToken());
       })
       .then(() => {
         fetchAndRenderComments();
