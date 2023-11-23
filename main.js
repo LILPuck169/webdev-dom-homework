@@ -1,12 +1,13 @@
 import { getDate, sendDate } from "./api.js";
 import { renderLogin } from "./loginPage.js";
 import { renderComments } from "./renderComments.js";
-
+import { format } from "date-fns";
 //Функция fetchAndRenderComments
 export const fetchAndRenderComments = () => {
   getDate().then((responseData) => {
     const appComments = responseData.comments.map((comment) => {
-      const date = new Date(comment.date);
+      // const date = new Date(comment.date);
+      const date = format(new Date(comment.date), "yyyy-MM-dd hh.mm.ss");
       return {
         name: comment.author.name,
         date: date.toLocaleString(),
