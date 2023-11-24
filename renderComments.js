@@ -24,7 +24,6 @@ export const renderComments = ({ comments, fetchAndRenderComments }) => {
               }" ></button>
             </div>
           </div>
-        
         </li>`;
     })
     .join("");
@@ -119,12 +118,9 @@ export const renderComments = ({ comments, fetchAndRenderComments }) => {
             "Имя и комментарий должны быть не короче 3 символов"
           ) {
             alert("Имя и комментарий должны быть не короче 3 символов");
-          }
-
-          if (error.message === "Сервер сломался, попробуй позже") {
+          } else if (error.message === "Сервер сломался, попробуй позже") {
             alert("Сервер сломался, попробуй позже");
-          }
-          if ((error.message = "Failed to fetch")) {
+          } else {
             alert("Кажется, у вас сломался интернет, попробуйте позже");
           }
         });
@@ -132,6 +128,10 @@ export const renderComments = ({ comments, fetchAndRenderComments }) => {
     };
     addEventClick();
   });
+
+  // else if ((error.message = "Failed to fetch")) {
+  //             alert("Кажется, у вас сломался интернет, попробуйте позже");
+  //           }
 
   //Кнопка лайка
   likeEnt();

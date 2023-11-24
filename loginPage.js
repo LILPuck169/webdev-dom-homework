@@ -3,22 +3,24 @@ import { login, setToken, getToken } from "./api.js";
 export const renderLogin = ({ fetchAndRenderComments }) => {
   // const appElement = document.getElementById("app");
   const appElement = document.querySelector(".container");
-  const loginHtml = ` <div class="form">
+  const loginHtml = ` <div class="add-form">
       <h3 class="form-title">Форма входа</h3>
       <div class="form-row">
-        <input type="text" id="login-input" class="input" placeholder="Логин" />
+        <input type="text" id="login-input" 
+        class="add-form-name-form"  placeholder="Логин" />
         <input
           type="text"
           id="password-input"
-          class="input"
+          class="add-form-text-form"
+         
           placeholder="Пароль"
         />
       </div>
       <br />
       <button class="button" id="login-button">Войти</button>
-       <a href="index.html" id="link-to-tasks">Зарегистрироваться</a>
+       
     </div>`;
-
+  // <a href="index.html" id="link-to-tasks">Зарегистрироваться</a>
   appElement.innerHTML = loginHtml;
 
   const buttonElement = document.getElementById("login-button");
@@ -26,17 +28,64 @@ export const renderLogin = ({ fetchAndRenderComments }) => {
   const passwordInputElement = document.getElementById("password-input");
 
   buttonElement.addEventListener("click", () => {
-    login({
-      login: loginInputElement.value,
-      password: passwordInputElement.value,
-    })
-      .then((responseData) => {
-        // console.log(getToken());
-        setToken(responseData.user.token);
-        // console.log(getToken());
+    const addCorrectColor = () => {
+      if (loginInputElement.value === "" && passwordInputElement.value === "") {
+        buttonElement.style.backgroundColor = "gery";
+        loginInputElement.style.backgroundColor = "#FFB6C1";
+        passwordInputElement.style.backgroundColor = "#FFB6C1";
+        alert("Введите логин и пароль");
+        return;
+      } else if (loginInputElement.value === "") {
+        loginInputElement.style.backgroundColor = "#FFB6C1";
+        return;
+      } else if (passwordInputElement.value === "") {
+        passwordInputElement.style.backgroundColor = "#FFB6C1";
+        return;
+      }
+      buttonElement.disabled = true;
+      buttonElement.textContent = "Элемент добавляется.....";
+      login({
+        login: loginInputElement.value,
+        password: passwordInputElement.value,
       })
-      .then(() => {
-        fetchAndRenderComments();
-      });
+        .then((responseData) => {
+          // console.log(getToken());
+          // Если будет всё плохо-раскоментить
+
+          setToken(responseData.user.token);
+        })
+        .then(() => {
+          buttonElement.disabled = true;
+          buttonElement.textContent = "Загружаюсь.....";
+        })
+        .then(() => {
+          fetchAndRenderComments();
+        })
+        .then(() => {
+          buttonElement.disabled = false;
+          buttonElement.textContent = "Войти";
+          loginInputElement.style.backgroundColor = "";
+          passwordInputElement.style.backgroundColor = "";
+          loginInputElement.value = "";
+          passwordInputElement.value = "";
+        })
+        .catch((error) => {
+          buttonElement.disabled = false;
+          buttonElement.textContent = "Добавить";
+          loginInputElement.style.backgroundColor = "#FFB6C1";
+          passwordInputElement.style.backgroundColor = "#FFB6C1";
+          if (
+            error.message ===
+            "Имя и комментарий должны быть не короче 3 символов"
+          ) {
+            alert("Неверный логин или Пароль");
+          } else if (error.message === "Сервер сломался, попробуй позже") {
+            alert("Сервер сломался, попробуй позже");
+          } else {
+            alert("Кажется, у вас сломался интернет, попробуйте позже");
+          }
+        });
+    };
+    addCorrectColor();
   });
 };
