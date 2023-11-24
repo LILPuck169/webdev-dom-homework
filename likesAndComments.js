@@ -1,3 +1,4 @@
+import { getToken } from "./api.js";
 import {
   butCom,
   likeComment,
@@ -10,9 +11,13 @@ export function likeEnt() {
   const likeButtons = document.querySelectorAll(".like-button");
   likeButtons.forEach((likeButton, index) => {
     likeButton.addEventListener("click", (event) => {
-      event.stopPropagation();
-      likeComment(index);
-      renderComments({ comments, fetchAndRenderComments });
+      if (getToken()) {
+        event.stopPropagation();
+        likeComment(index);
+        renderComments({ comments, fetchAndRenderComments });
+      } else {
+        alert("Нузно авторизоваться")
+      }
     });
   });
 }

@@ -17,12 +17,20 @@ export const renderComments = ({ comments, fetchAndRenderComments }) => {
             </div>
           </div>
           <div class="comment-footer">
-            <div class="likes">
+          
+           ${
+             getToken()
+               ? ` <div class="likes">
               <span class="likes-counter">${comment.likes}</span>
               <button class="like-button ${
                 comment.isLike ? "-active-like" : ""
               }" ></button>
-            </div>
+            </div>`
+               : `<div class="likes">
+        <span class="likes-counter">${comment.likes}</span>
+        <button class="like-button"></button>
+      </div>`
+           }
           </div>
         </li>`;
     })
@@ -155,3 +163,10 @@ export const renderComments = ({ comments, fetchAndRenderComments }) => {
   //     });
   //   });
 };
+
+//  <div class="likes">
+//               <span class="likes-counter">${comment.likes}</span>
+//               <button class="like-button ${
+//                 comment.isLike ? "-active-like" : ""
+//               }" ></button>
+//             </div>
