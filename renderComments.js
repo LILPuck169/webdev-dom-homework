@@ -1,5 +1,5 @@
 import { getToken, sendDate } from "./api.js";
-import { commentEnt, likeEnt } from "./likesAndComments.js";
+import { commentEnt, disabledName, likeEnt } from "./likesAndComments.js";
 import { renderLogin } from "./loginPage.js";
 const ulElements = document.getElementById("ul");
 export const renderComments = ({ comments, fetchAndRenderComments }) => {
@@ -107,7 +107,7 @@ export const renderComments = ({ comments, fetchAndRenderComments }) => {
         .then(() => {
           return fetchAndRenderComments();
         })
-        .then((data) => {
+        .then(() => {
           button.disabled = false;
           button.textContent = "Добавить";
           input.style.backgroundColor = "";
@@ -136,37 +136,22 @@ export const renderComments = ({ comments, fetchAndRenderComments }) => {
     };
     addEventClick();
   });
-
-  // else if ((error.message = "Failed to fetch")) {
-  //             alert("Кажется, у вас сломался интернет, попробуйте позже");
-  //           }
-
   //Кнопка лайка
+  disabledName();
   likeEnt();
-  //   const likeButtons = document.querySelectorAll(".like-button");
-  //   likeButtons.forEach((likeButton, index) => {
-  //     likeButton.addEventListener("click", (event) => {
-  //       event.stopPropagation();
-  //       likeComment(index);
-  //       renderComments();
-  //     });
-  //   });
-
   //Кнопка комментария
   commentEnt();
-  //   const commentButton = document.querySelectorAll(".comment-text");
-  //   commentButton.forEach((comBut, index) => {
-  //     comBut.addEventListener("click", (event) => {
-  //       event.stopPropagation();
-  //       butCom(index);
-  //       renderComments();
-  //     });
-  //   });
 };
-
+// disabledName();
 //  <div class="likes">
 //               <span class="likes-counter">${comment.likes}</span>
 //               <button class="like-button ${
 //                 comment.isLike ? "-active-like" : ""
 //               }" ></button>
 //             </div>
+
+//  ${
+//           getToken()
+//             ? `<div id="commentName">${comment.name}</div>`
+//             : `<div id="commentName">${comment.name}</div>`
+//         }

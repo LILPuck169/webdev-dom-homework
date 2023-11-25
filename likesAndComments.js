@@ -4,6 +4,7 @@ import {
   likeComment,
   comments,
   fetchAndRenderComments,
+  disblName,
 } from "./main.js";
 import { renderComments } from "./renderComments.js";
 
@@ -16,7 +17,7 @@ export function likeEnt() {
         likeComment(index);
         renderComments({ comments, fetchAndRenderComments });
       } else {
-        alert("Нузно авторизоваться")
+        alert("Нужно авторизоваться....");
       }
     });
   });
@@ -30,5 +31,15 @@ export function commentEnt() {
       butCom(index);
       renderComments({ comments, fetchAndRenderComments });
     });
+  });
+}
+
+export function disabledName() {
+  const disableNam = document.querySelectorAll(".commentName");
+  disableNam.forEach((index) => {
+    // if (getToken()) {
+    // }
+    disblName(index);
+    renderComments({ comments, fetchAndRenderComments });
   });
 }
