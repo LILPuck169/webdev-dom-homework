@@ -10,7 +10,15 @@ export const getToken = () => {
   return token;
 };
 
-
+//Реализация с именем
+let userName;
+export const setName = (newName) => {
+  userName = newName;
+};
+export const getName = () => {
+  return userName;
+};
+//Конец реализации с именем
 
 export function getDate() {
   return fetch(host, {

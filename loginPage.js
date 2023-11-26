@@ -1,4 +1,4 @@
-import { login, setToken, getToken } from "./api.js";
+import { login, setToken, getToken, setName, getName } from "./api.js";
 
 export const renderLogin = ({ fetchAndRenderComments }) => {
   // const appElement = document.getElementById("app");
@@ -53,8 +53,8 @@ export const renderLogin = ({ fetchAndRenderComments }) => {
         .then((responseData) => {
           // console.log(getToken());
           // Если будет всё плохо-раскоментить
-
           setToken(responseData.user.token);
+          setName(responseData.user.userName);
         })
         .then(() => {
           buttonElement.disabled = true;

@@ -80,8 +80,8 @@ export const renderComments = ({ comments, fetchAndRenderComments }) => {
     // setupLikeButton();
     // addButtonLike();
     const addEventClick = () => {
-      input.disabled = true;
-      input.value = "Админ";
+      // input.disabled = true;
+      // input.value = "Админ";
       if (input.value === "" && textArea.value === "") {
         button.style.backgroundColor = "grey";
         input.style.backgroundColor = "#FFB6C1";
