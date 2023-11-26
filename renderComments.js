@@ -1,4 +1,4 @@
-import { getToken, sendDate } from "./api.js";
+import { getToken, sendDate, getName, setName } from "./api.js";
 import { commentEnt, disabledName, likeEnt } from "./likesAndComments.js";
 import { renderLogin } from "./loginPage.js";
 const ulElements = document.getElementById("ul");
@@ -8,7 +8,7 @@ export const renderComments = ({ comments, fetchAndRenderComments }) => {
     .map((comment, index) => {
       return `<li class="comment" id ="comment" data-index="${index} ">
           <div class="comment-header">
-            <div id="commentName">${comment.name}</div>
+          <div id="commentName">${comment.name}</div>
             <div>${comment.date}</div>
           </div>
           <div class="comment-body">
@@ -42,12 +42,22 @@ export const renderComments = ({ comments, fetchAndRenderComments }) => {
       ${
         getToken()
           ? `<div id="form" class="add-form">
-        <input
+          ${
+            getName()
+              ? `    <input
           id="nameInput"
           type="text"
           class="add-form-name"
           placeholder="Введите ваше имя"
-        />
+        />`
+              : `    <input
+          id="nameInput"
+          type="text"
+          class="add-form-name"
+          placeholder="Введите ваше имя"
+        />`
+          }
+    
         <textarea
           id="commintInput"
           type="textarea"
@@ -104,7 +114,8 @@ export const renderComments = ({ comments, fetchAndRenderComments }) => {
         text: textArea.value.replaceAll("<", "&lt;").replaceAll(">", "&gt;"),
         forceError: true,
       })
-        .then(() => {
+        .then((responseData) => {
+          // setName(responseData.user.userName);
           button.disabled = true;
           button.textContent = "Загружаю список…";
         })
