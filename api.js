@@ -10,6 +10,8 @@ export const getToken = () => {
   return token;
 };
 
+
+
 export function getDate() {
   return fetch(host, {
     method: "GET",

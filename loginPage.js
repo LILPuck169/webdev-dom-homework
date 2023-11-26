@@ -30,16 +30,18 @@ export const renderLogin = ({ fetchAndRenderComments }) => {
   buttonElement.addEventListener("click", () => {
     const addCorrectColor = () => {
       if (loginInputElement.value === "" && passwordInputElement.value === "") {
-        buttonElement.style.backgroundColor = "gery";
+        buttonElement.style.backgroundColor = "grey";
         loginInputElement.style.backgroundColor = "#FFB6C1";
         passwordInputElement.style.backgroundColor = "#FFB6C1";
         alert("Введите логин и пароль");
         return;
       } else if (loginInputElement.value === "") {
         loginInputElement.style.backgroundColor = "#FFB6C1";
+        buttonElement.style.backgroundColor = "";
         return;
       } else if (passwordInputElement.value === "") {
         passwordInputElement.style.backgroundColor = "#FFB6C1";
+        buttonElement.style.backgroundColor = "";
         return;
       }
       buttonElement.disabled = true;

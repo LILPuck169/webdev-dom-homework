@@ -80,6 +80,8 @@ export const renderComments = ({ comments, fetchAndRenderComments }) => {
     // setupLikeButton();
     // addButtonLike();
     const addEventClick = () => {
+      input.disabled = true;
+      input.value = "Админ";
       if (input.value === "" && textArea.value === "") {
         button.style.backgroundColor = "grey";
         input.style.backgroundColor = "#FFB6C1";
@@ -87,9 +89,11 @@ export const renderComments = ({ comments, fetchAndRenderComments }) => {
         return;
       } else if (input.value === "") {
         input.style.backgroundColor = "#FFB6C1";
+        button.style.backgroundColor = "";
         return;
       } else if (textArea.value === "") {
         textArea.style.backgroundColor = "#FFB6C1";
+        button.style.backgroundColor = "";
         return;
       }
       button.disabled = true;
