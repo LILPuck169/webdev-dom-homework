@@ -42,34 +42,21 @@ export const renderComments = ({ comments, fetchAndRenderComments }) => {
       ${
         getToken()
           ? `<div id="form" class="add-form">
-          ${
-            getName()
-              ? `    <input
-          id="nameInput"
-          type="text"
-          class="add-form-name"
-          placeholder="Введите ваше имя"
-        />`
-              : `    <input
-          id="nameInput"
-          type="text"
-          class="add-form-name"
-          placeholder="Введите ваше имя"
-        />`
-          }
-    
-        <textarea
-          id="commintInput"
-          type="textarea"
-          class="add-form-text"
-          placeholder="Введите ваш коментарий"
-          rows="4"
-        ></textarea>
-        <div class="add-form-row">
-          <button id="button" class="add-form-button">Написать</button>
-        </div>
-      </div>`
-          : `<span class="auth-button">Авторизуйтесь!</span>`
+          <input
+          value='${getName()}' disabled
+          />
+          <textarea
+            id="commintInput"
+            type="textarea"
+            class="add-form-text"
+            placeholder="Введите ваш коментарий"
+            rows="4"
+          ></textarea>
+          <div class="add-form-row">
+            <button id="button" class="add-form-button">Написать</button>
+          </div>
+        </div>`
+          : '<span class="auth-button">Авторизуйтесь!</span>'
       }
          </div>`;
   // ${!getToken() && `<span class="auth-button">Авторизуйтесь!</span>`}

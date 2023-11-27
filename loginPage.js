@@ -54,7 +54,8 @@ export const renderLogin = ({ fetchAndRenderComments }) => {
           // console.log(getToken());
           // Если будет всё плохо-раскоментить
           setToken(responseData.user.token);
-          setName(responseData.user.userName);
+          setName(responseData.user.name);
+          // console.log(responseData);
         })
         .then(() => {
           buttonElement.disabled = true;

@@ -16,6 +16,7 @@ export const setName = (newName) => {
   userName = newName;
 };
 export const getName = () => {
+  console.log(userName);
   return userName;
 };
 //Конец реализации с именем
