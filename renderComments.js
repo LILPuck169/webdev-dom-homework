@@ -77,27 +77,16 @@ export const renderComments = ({ comments, fetchAndRenderComments }) => {
     // setupLikeButton();
     // addButtonLike();
     const addEventClick = () => {
-      // input.disabled = true;
-      // input.value = "Админ";
-      if (input.value === "" && textArea.value === "") {
+      if (textArea.value === "") {
         button.style.backgroundColor = "grey";
-        input.style.backgroundColor = "#FFB6C1";
         textArea.style.backgroundColor = "#FFB6C1";
-        return;
-      } else if (input.value === "") {
-        input.style.backgroundColor = "#FFB6C1";
-        button.style.backgroundColor = "";
-        return;
-      } else if (textArea.value === "") {
-        textArea.style.backgroundColor = "#FFB6C1";
-        button.style.backgroundColor = "";
         return;
       }
       button.disabled = true;
       button.textContent = "Элемент добавляется.....";
 
       sendDate({
-        name: input.value.replaceAll("<", "&lt;").replaceAll(">", "&gt;"),
+        // name: input.value.replaceAll("<", "&lt;").replaceAll(">", "&gt;"),
         text: textArea.value.replaceAll("<", "&lt;").replaceAll(">", "&gt;"),
         forceError: true,
       })
@@ -112,16 +101,16 @@ export const renderComments = ({ comments, fetchAndRenderComments }) => {
         .then(() => {
           button.disabled = false;
           button.textContent = "Добавить";
-          input.style.backgroundColor = "";
+          // input.style.backgroundColor = "";
           textArea.style.backgroundColor = "";
-          input.value = "";
+          // input.value = "";
           textArea.value = "";
         })
         .catch((error) => {
           // console.log(error.message);
           button.disabled = false;
           button.textContent = "Добавить";
-          input.style.backgroundColor = "#FFB6C1";
+          // input.style.backgroundColor = "#FFB6C1";
           textArea.style.backgroundColor = "#FFB6C1";
           if (
             error.message ===
