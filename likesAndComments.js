@@ -1,13 +1,24 @@
-import { butCom, likeComment, comments } from "./main.js";
+import { getToken } from "./api.js";
+import {
+  butCom,
+  likeComment,
+  comments,
+  fetchAndRenderComments,
+  disblName,
+} from "./main.js";
 import { renderComments } from "./renderComments.js";
 
 export function likeEnt() {
   const likeButtons = document.querySelectorAll(".like-button");
   likeButtons.forEach((likeButton, index) => {
     likeButton.addEventListener("click", (event) => {
-      event.stopPropagation();
-      likeComment(index);
-      renderComments({ comments });
+      if (getToken()) {
+        event.stopPropagation();
+        likeComment(index);
+        renderComments({ comments, fetchAndRenderComments });
+      } else {
+        alert("Нужно авторизоваться....");
+      }
     });
   });
 }
@@ -18,7 +29,17 @@ export function commentEnt() {
     comBut.addEventListener("click", (event) => {
       event.stopPropagation();
       butCom(index);
-      renderComments({ comments });
+      renderComments({ comments, fetchAndRenderComments });
     });
+  });
+}
+
+export function disabledName() {
+  const disableNam = document.querySelectorAll(".commentName");
+  disableNam.forEach((index) => {
+    // if (getToken()) {
+    // }
+    disblName(index);
+    renderComments({ comments, fetchAndRenderComments });
   });
 }
