@@ -81,6 +81,8 @@ export const renderComments = ({ comments, fetchAndRenderComments }) => {
         button.style.backgroundColor = "grey";
         textArea.style.backgroundColor = "#FFB6C1";
         return;
+      } else if (textArea.style.backgroundColor === "rgb(255, 182, 193)") {
+        textArea.style.backgroundColor = "";
       }
       button.disabled = true;
       button.textContent = "Элемент добавляется.....";

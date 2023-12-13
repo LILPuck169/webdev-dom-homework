@@ -1,4 +1,4 @@
-const host = "https://wedev-api.sky.pro/api/v2/yaroslav-olshanskiy/comments";
+const host = "https://wedev-api.sky.pro/api/v2/anastasia-grigorenko/comments";
 const userUrl = "https://wedev-api.sky.pro/api/user/login";
 
 let token;
@@ -74,5 +74,4 @@ export function login({ login, password }) {
   });
 }
 
-//"https://wedev-api.sky.pro/api/v1/yaroslav-olshanskiy/comments" (GET)
-//"https://wedev-api.sky.pro/api/v1/yaroslav-olshanskiy/comments"(POST)
+
