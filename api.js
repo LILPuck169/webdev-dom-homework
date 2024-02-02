@@ -1,5 +1,5 @@
 const host = "https://wedev-api.sky.pro/api/v2/anastasia-grigorenko/comments";
-const userUrl = "https://wedev-api.sky.pro/api/user/login";
+const userUrl = "https://wedev-api.sky.pro/api/user/login"; 
 
 let token;
 export const setToken = (newToken) => {
@@ -8,7 +8,7 @@ export const setToken = (newToken) => {
 
 export const getToken = () => {
   return token;
-};
+}; 
 
 //Реализация с именем
 let userName;
