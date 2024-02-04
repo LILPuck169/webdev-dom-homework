@@ -5,10 +5,11 @@ let token;
 export const setToken = (newToken) => {
   token = newToken;
 };
-
+//Привет
 export const getToken = () => {
   return token;
 }; 
+
 
 //Реализация с именем
 let userName;
