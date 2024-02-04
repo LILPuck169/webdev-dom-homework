@@ -1,14 +1,15 @@
-const host = "https://wedev-api.sky.pro/api/v2/yaroslav-olshanskiy/comments";
-const userUrl = "https://wedev-api.sky.pro/api/user/login";
+const host = "https://wedev-api.sky.pro/api/v2/anastasia-grigorenko/comments";
+const userUrl = "https://wedev-api.sky.pro/api/user/login"; 
 
 let token;
 export const setToken = (newToken) => {
   token = newToken;
 };
-
+//Привет
 export const getToken = () => {
   return token;
-};
+}; 
+
 
 //Реализация с именем
 let userName;
@@ -74,5 +75,4 @@ export function login({ login, password }) {
   });
 }
 
-//"https://wedev-api.sky.pro/api/v1/yaroslav-olshanskiy/comments" (GET)
-//"https://wedev-api.sky.pro/api/v1/yaroslav-olshanskiy/comments"(POST)
+
