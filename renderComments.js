@@ -73,13 +73,14 @@ export const renderComments = ({ comments, fetchAndRenderComments }) => {
 
   // Кнопка (Написать по клику)
   button?.addEventListener("click", function () {
-    // addComment();
-    // setupLikeButton();
-    // addButtonLike();
     const addEventClick = () => {
       if (textArea.value === "") {
         button.style.backgroundColor = "grey";
         textArea.style.backgroundColor = "#FFB6C1";
+        setTimeout(() => {
+          textArea.style.backgroundColor = ""; // Возвращаем к прежнему виду
+          button.style.backgroundColor = "";
+        }, 3000); // Ждем 3 секунды
         return;
       } else if (textArea.style.backgroundColor === "rgb(255, 182, 193)") {
         textArea.style.backgroundColor = "";
@@ -88,12 +89,10 @@ export const renderComments = ({ comments, fetchAndRenderComments }) => {
       button.textContent = "Элемент добавляется.....";
 
       sendDate({
-        // name: input.value.replaceAll("<", "&lt;").replaceAll(">", "&gt;"),
         text: textArea.value.replaceAll("<", "&lt;").replaceAll(">", "&gt;"),
         forceError: true,
       })
         .then((responseData) => {
-          // setName(responseData.user.userName);
           button.disabled = true;
           button.textContent = "Загружаю список…";
         })
@@ -103,16 +102,11 @@ export const renderComments = ({ comments, fetchAndRenderComments }) => {
         .then(() => {
           button.disabled = false;
           button.textContent = "Добавить";
-          // input.style.backgroundColor = "";
-          textArea.style.backgroundColor = "";
-          // input.value = "";
           textArea.value = "";
         })
         .catch((error) => {
-          // console.log(error.message);
           button.disabled = false;
           button.textContent = "Добавить";
-          // input.style.backgroundColor = "#FFB6C1";
           textArea.style.backgroundColor = "#FFB6C1";
           if (
             error.message ===
@@ -129,22 +123,10 @@ export const renderComments = ({ comments, fetchAndRenderComments }) => {
     };
     addEventClick();
   });
+
   //Кнопка лайка
   disabledName();
   likeEnt();
   //Кнопка комментария
   commentEnt();
 };
-// disabledName();
-//  <div class="likes">
-//               <span class="likes-counter">${comment.likes}</span>
-//               <button class="like-button ${
-//                 comment.isLike ? "-active-like" : ""
-//               }" ></button>
-//             </div>
-
-//  ${
-//           getToken()
-//             ? `<div id="commentName">${comment.name}</div>`
-//             : `<div id="commentName">${comment.name}</div>`
-//         }
